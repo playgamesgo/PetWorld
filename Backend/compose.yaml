@@ -1,0 +1,15 @@
+name: petworld
+
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=backend'
+      - 'POSTGRES_PASSWORD=secretpassword'
+      - 'POSTGRES_USER=backend'
+    ports:
+      - '5432:5432'
+  redis:
+    image: 'redis:latest'
+    ports:
+      - '6379:6379'
