@@ -6,6 +6,7 @@ import me.playgamesgo.petworldbackend.models.Roles;
 import me.playgamesgo.petworldbackend.models.User;
 import me.playgamesgo.petworldbackend.payload.request.ForgotPasswordRequest;
 import me.playgamesgo.petworldbackend.payload.request.LoginRequest;
+import me.playgamesgo.petworldbackend.payload.request.ResetPasswordRequest;
 import me.playgamesgo.petworldbackend.payload.request.SignupRequest;
 import me.playgamesgo.petworldbackend.payload.response.JwtResponse;
 import me.playgamesgo.petworldbackend.payload.response.MessageResponse;
@@ -109,14 +110,39 @@ public class AuthController {
     public ResponseEntity<?> forgotPassword(@Valid @RequestBody ForgotPasswordRequest forgotPasswordRequest) {
         String email = forgotPasswordRequest.getEmail();
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Error: User not found."));
+                .orElse(null);
+
+        if (user == null) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: User not found."));
+        }
 
         String token = UUID.randomUUID().toString();
         redisTemplate.opsForValue().set(token, user.getUsername(), 15, TimeUnit.MINUTES);
 
-        String resetLink = "http://localhost:8080/api/auth/reset-password?token=" + token;
+        String resetLink = "http://localhost:8081/api/auth/reset-password?token=" + token;
         emailService.sendEmail(email, "Password Reset Request", "To reset your password, click the link below:\n" + resetLink);
 
         return ResponseEntity.ok(new MessageResponse("Password reset link sent to your email."));
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@Valid @RequestBody ResetPasswordRequest resetPasswordRequest) {
+        String token = resetPasswordRequest.getToken();
+        String newPassword = resetPasswordRequest.getNewPassword();
+
+        String username = redisTemplate.opsForValue().get(token);
+        if (username == null) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: Invalid or expired token."));
+        }
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Error: User not found."));
+
+        user.setPassword(encoder.encode(newPassword));
+        userRepository.save(user);
+
+        redisTemplate.delete(token);
+
+        return ResponseEntity.ok(new MessageResponse("Password reset successfully."));
     }
 }
