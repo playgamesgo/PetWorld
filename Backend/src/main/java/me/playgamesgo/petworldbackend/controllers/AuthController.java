@@ -4,15 +4,20 @@ import jakarta.validation.Valid;
 import me.playgamesgo.petworldbackend.models.Role;
 import me.playgamesgo.petworldbackend.models.Roles;
 import me.playgamesgo.petworldbackend.models.User;
+import me.playgamesgo.petworldbackend.payload.request.ForgotPasswordRequest;
 import me.playgamesgo.petworldbackend.payload.request.LoginRequest;
+import me.playgamesgo.petworldbackend.payload.request.ResetPasswordRequest;
 import me.playgamesgo.petworldbackend.payload.request.SignupRequest;
 import me.playgamesgo.petworldbackend.payload.response.JwtResponse;
 import me.playgamesgo.petworldbackend.payload.response.MessageResponse;
 import me.playgamesgo.petworldbackend.repository.RoleRepository;
 import me.playgamesgo.petworldbackend.repository.UserRepository;
 import me.playgamesgo.petworldbackend.security.jwt.JwtUtils;
-import me.playgamesgo.petworldbackend.security.services.UserDetailsImpl;
+import me.playgamesgo.petworldbackend.services.EmailService;
+import me.playgamesgo.petworldbackend.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +28,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -34,14 +41,19 @@ public class AuthController {
     private final RoleRepository roleRepository;
     private final PasswordEncoder encoder;
     private final JwtUtils jwtUtils;
+    private final RedisTemplate<String, String> redisTemplate;
+    private final EmailService emailService;
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder encoder, JwtUtils jwtUtils) {
+    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
+                          RoleRepository roleRepository, PasswordEncoder encoder, JwtUtils jwtUtils, @Qualifier("redisTemplate") RedisTemplate<String, String> redisTemplate, EmailService emailService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.encoder = encoder;
         this.jwtUtils = jwtUtils;
+        this.redisTemplate = redisTemplate;
+        this.emailService = emailService;
     }
 
     @PostMapping("/signin")
@@ -92,5 +104,45 @@ public class AuthController {
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@Valid @RequestBody ForgotPasswordRequest forgotPasswordRequest) {
+        String email = forgotPasswordRequest.getEmail();
+        User user = userRepository.findByEmail(email)
+                .orElse(null);
+
+        if (user == null) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: User not found."));
+        }
+
+        String token = UUID.randomUUID().toString();
+        redisTemplate.opsForValue().set(token, user.getUsername(), 15, TimeUnit.MINUTES);
+
+        String resetLink = "http://localhost:8081/api/auth/reset-password?token=" + token;
+        emailService.sendEmail(email, "Password Reset Request", "To reset your password, click the link below:\n" + resetLink);
+
+        return ResponseEntity.ok(new MessageResponse("Password reset link sent to your email."));
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@Valid @RequestBody ResetPasswordRequest resetPasswordRequest) {
+        String token = resetPasswordRequest.getToken();
+        String newPassword = resetPasswordRequest.getNewPassword();
+
+        String username = redisTemplate.opsForValue().get(token);
+        if (username == null) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: Invalid or expired token."));
+        }
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Error: User not found."));
+
+        user.setPassword(encoder.encode(newPassword));
+        userRepository.save(user);
+
+        redisTemplate.delete(token);
+
+        return ResponseEntity.ok(new MessageResponse("Password reset successfully."));
     }
 }

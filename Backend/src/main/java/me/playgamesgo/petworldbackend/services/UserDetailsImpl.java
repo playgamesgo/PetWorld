@@ -1,4 +1,4 @@
-package me.playgamesgo.petworldbackend.security.services;
+package me.playgamesgo.petworldbackend.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;

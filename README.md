@@ -16,7 +16,8 @@ git clone https://github.com/playgamesgo/PetWorld.git
 2. Change postgres password in `Backend/compose.yaml` file
 3. Change postgres password in `Backend/src/main/resources/application.properties` file
 4. Change jwtSecret in `Backend/src/main/resources/application.properties` file
-5. Run the following command to start the backend
+5. Setup Mail Server in `Backend/src/main/resources/application.properties` file
+6. Run the following command to start the backend
 ```sh
 cd Backend
 ./gradlew bootRun

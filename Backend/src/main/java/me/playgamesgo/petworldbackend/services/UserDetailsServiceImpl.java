@@ -1,4 +1,4 @@
-package me.playgamesgo.petworldbackend.security.services;
+package me.playgamesgo.petworldbackend.services;
 
 import me.playgamesgo.petworldbackend.models.User;
 import me.playgamesgo.petworldbackend.repository.UserRepository;

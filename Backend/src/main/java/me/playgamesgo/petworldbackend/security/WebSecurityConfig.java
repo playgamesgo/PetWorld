@@ -2,7 +2,7 @@ package me.playgamesgo.petworldbackend.security;
 
 import me.playgamesgo.petworldbackend.security.jwt.AuthEntryPointJwt;
 import me.playgamesgo.petworldbackend.security.jwt.AuthTokenFilter;
-import me.playgamesgo.petworldbackend.security.services.UserDetailsServiceImpl;
+import me.playgamesgo.petworldbackend.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
