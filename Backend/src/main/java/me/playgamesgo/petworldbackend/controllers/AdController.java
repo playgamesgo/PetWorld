@@ -56,11 +56,8 @@ public class AdController {
         String currentUsername = authentication.getName();
 
         Optional<User> user = userService.findByUsername(currentUsername);
-        if (user.isEmpty()) {
-            return ResponseEntity.badRequest().build();
-        }
+        return user.map(value -> ResponseEntity.ok(AdResponse.fromAd(adService.save(ad, value)))).orElseGet(() -> ResponseEntity.status(403).build());
 
-        return ResponseEntity.ok(AdResponse.fromAd(adService.save(ad, user.get())));
     }
 
     @PutMapping("/{id}")
