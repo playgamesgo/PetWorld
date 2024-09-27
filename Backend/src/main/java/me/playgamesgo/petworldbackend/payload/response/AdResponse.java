@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import me.playgamesgo.petworldbackend.models.Ad;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,10 +28,11 @@ public class AdResponse {
     String furLength;
     List<String> images;
     Boolean active;
+    Date createdAt;
 
     public AdResponse(long id, UserResponse user, String title, String description, String type, Float price, String location,
                       Integer age, String breed, String gender, Boolean vaccinated, String health,
-                      String color, String size, String furLength, List<String> images, Boolean active) {
+                      String color, String size, String furLength, List<String> images, Boolean active, Date createdAt) {
         this.id = id;
         this.user = user;
         this.title = title;
@@ -48,6 +50,7 @@ public class AdResponse {
         this.furLength = furLength;
         this.images = images;
         this.active = active;
+        this.createdAt = createdAt;
     }
 
     public static List<AdResponse> fromList(List<Ad> ads) {
@@ -60,6 +63,6 @@ public class AdResponse {
                         ad.getUser().getEmail(), ad.getUser().getLocation(), ad.getUser().getCreatedAt()),
                 ad.getTitle(), ad.getDescription(), ad.getType(), ad.getPrice(), ad.getLocation(),
                 ad.getAge(), ad.getBreed(), ad.getGender(), ad.isVaccinated(), ad.getHealth(),
-                ad.getColor(), ad.getSize(), ad.getFurLength(), ad.getImages(), ad.isActive());
+                ad.getColor(), ad.getSize(), ad.getFurLength(), ad.getImages(), ad.isActive(), ad.getCreatedAt());
     }
 }

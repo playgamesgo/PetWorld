@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -63,6 +64,8 @@ public final class Ad {
     private List<String> images;
 
     private boolean active = true;
+
+    private Date createdAt = new Date();
 
     public Ad(User user, String title, String description, String type, float price, String location,
               int age, String breed, String gender, boolean vaccinated, String health,

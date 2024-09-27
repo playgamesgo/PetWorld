@@ -130,7 +130,7 @@ public class AdController {
                                       @RequestParam(defaultValue = "0") int from,
                                       @RequestParam(defaultValue = "20") int limit,
                                       @RequestParam(required = false) String sortBy) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "relevance");
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
         if (sortBy != null) {
             sort = switch (sortBy) {
                 case "date" -> Sort.by(Sort.Direction.DESC, "createdAt");
