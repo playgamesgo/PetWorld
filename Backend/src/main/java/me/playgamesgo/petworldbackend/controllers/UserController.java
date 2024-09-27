@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
 
@@ -65,6 +65,6 @@ public class UserController {
         }
 
         userService.updateUser(id, userDetails);
-        return ResponseEntity.ok( new MessageResponse("User updated successfully"));
+        return ResponseEntity.ok(new MessageResponse("User updated successfully"));
     }
 }

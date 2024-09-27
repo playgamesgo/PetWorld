@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class UserResponse {
+public final class UserResponse {
     long id;
     String firstName;
     String lastName;

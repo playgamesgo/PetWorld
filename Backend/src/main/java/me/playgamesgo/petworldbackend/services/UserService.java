@@ -3,16 +3,17 @@ package me.playgamesgo.petworldbackend.services;
 import me.playgamesgo.petworldbackend.models.User;
 import me.playgamesgo.petworldbackend.payload.request.UpdateUserRequest;
 import me.playgamesgo.petworldbackend.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 public class UserService {
+    private final UserRepository userRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
@@ -20,6 +21,10 @@ public class UserService {
 
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     public void updateUser(Long id, UpdateUserRequest userDetails) {
