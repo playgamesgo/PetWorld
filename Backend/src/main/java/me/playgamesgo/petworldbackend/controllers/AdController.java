@@ -51,7 +51,7 @@ public class AdController {
     }
 
     @PostMapping
-    public ResponseEntity<MessageResponse> createAd(@RequestBody CreateAdRequest ad) {
+    public ResponseEntity<AdResponse> createAd(@RequestBody CreateAdRequest ad) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
 
@@ -60,8 +60,7 @@ public class AdController {
             return ResponseEntity.badRequest().build();
         }
 
-        adService.save(ad, user.get());
-        return ResponseEntity.ok(new MessageResponse("Ad created successfully"));
+        return ResponseEntity.ok(AdResponse.fromAd(adService.save(ad, user.get())));
     }
 
     @PutMapping("/{id}")

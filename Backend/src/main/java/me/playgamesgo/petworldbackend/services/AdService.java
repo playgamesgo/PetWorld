@@ -22,11 +22,11 @@ public class AdService {
         return adRepository.findAll(pageable);
     }
 
-    public void save(CreateAdRequest ad, User user) {
+    public Ad save(CreateAdRequest ad, User user) {
         Ad newAd = new Ad(user, ad.getTitle(), ad.getDescription(), ad.getType(), ad.getPrice(), ad.getLocation(),
                 ad.getAge(), ad.getBreed(), ad.getGender(), ad.getVaccinated(), ad.getHealth(),
                 ad.getColor(), ad.getSize(), ad.getFurLength(), ad.getImages());
-        adRepository.save(newAd);
+        return adRepository.save(newAd);
     }
 
     public void save(Ad ad) {
