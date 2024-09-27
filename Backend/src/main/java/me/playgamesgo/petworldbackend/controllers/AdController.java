@@ -149,7 +149,15 @@ public class AdController {
         String currentUsername = authentication.getName();
 
         Optional<User> user = userService.findByUsername(currentUsername);
+        if (user.isEmpty()) {
+            return false;
+        }
 
-        return user.filter(value -> value == adService.findById(adId).getUser()).isPresent();
+        Ad ad = adService.findById(adId);
+        if (ad == null) {
+            return false;
+        }
+
+        return user.get().equals(ad.getUser());
     }
 }
