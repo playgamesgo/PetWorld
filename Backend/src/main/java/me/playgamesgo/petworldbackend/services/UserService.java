@@ -27,6 +27,10 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
     public void updateUser(Long id, UpdateUserRequest userDetails) {
         User user = userRepository.findById(id).orElse(null);
         if (user == null) return;

@@ -77,7 +77,7 @@ public class AdController {
 
         if (adService.existsById(id)) {
             adService.deleteById(id);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
         }
