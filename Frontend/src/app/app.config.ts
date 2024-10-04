@@ -139,7 +139,7 @@ export enum TOASTER_MESSAGE {
 export const enum ENDPOINT {
   // .NET
   DICTIONARY = 'dictionaries',
-  PROPOSALS = 'proposals',
+  PROPOSALS = 'ads',
 
   // PYTHON
   SIGN_UP = 'v1/auth/register',

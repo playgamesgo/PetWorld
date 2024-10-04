@@ -33,6 +33,7 @@ public class UserService {
         if (userDetails.getFirstName() != null) user.setFirstName(userDetails.getFirstName());
         if (userDetails.getLastName() != null) user.setLastName(userDetails.getLastName());
         if (userDetails.getEmail() != null) user.setEmail(userDetails.getEmail());
+        if (userDetails.getPhoneNumber() != null) user.setPhoneNumber(userDetails.getPhoneNumber());
         if (userDetails.getLocation() != null) user.setLocation(userDetails.getLocation());
         if (userDetails.getPassword() != null) user.setPassword(userDetails.getPassword());
         userRepository.save(user);

@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -41,6 +40,10 @@ public final class User {
     private String email;
 
     @NotBlank
+    @Size(max = 16)
+    private String phoneNumber;
+
+    @NotBlank
     private String location;
 
     @NotBlank
@@ -57,11 +60,12 @@ public final class User {
     public User() {
     }
 
-    public User(String username, String firstName, String lastName, String email, String location, String password) {
+    public User(String username, String firstName, String lastName, String email, String phoneNumber, String location, String password) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.phoneNumber = phoneNumber;
         this.location = location;
         this.password = password;
     }

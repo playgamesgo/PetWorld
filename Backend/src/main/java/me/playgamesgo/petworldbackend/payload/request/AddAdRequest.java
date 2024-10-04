@@ -1,43 +1,43 @@
 package me.playgamesgo.petworldbackend.payload.request;
 
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
-import me.playgamesgo.petworldbackend.models.PetProperty;
 import me.playgamesgo.petworldbackend.models.Photo;
-import org.springframework.data.relational.core.mapping.Embedded;
+import me.playgamesgo.petworldbackend.models.PetProperty;
 
 import java.util.List;
 
 @Getter
 @Setter
-public class UpdateAdRequest {
-    @Embedded.Nullable
+public class AddAdRequest {
+    @NotNull
     private Boolean isActive;
 
-    @Embedded.Nullable
+    @NotNull
     private Integer petOrigin;
 
-    @Embedded.Nullable
+    @NotBlank
     private String title;
 
-    @Embedded.Nullable
+    @NotNull
     private Integer price;
 
-    @Embedded.Nullable
+    @NotBlank
     private String summary;
 
-    @Embedded.Nullable
+    @NotBlank
     private String location;
 
-    @Embedded.Nullable
+    @NotNull
     private Integer age;
 
-    @Embedded.Nullable
+    @NotNull
     private Integer ageUnits;
 
-    @Embedded.Nullable
+    @NotEmpty
     private List<Photo> photos;
 
-    @Embedded.Nullable
+    @NotEmpty
     private List<PetProperty> properties;
 }

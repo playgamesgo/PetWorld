@@ -1,8 +1,7 @@
 package me.playgamesgo.petworldbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,81 +12,40 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "ads")
-public final class Ad {
+public class Ad {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    @NotBlank
-    private User user;
+    private Date createdOn = new Date();
 
-    @NotBlank
-    @Size(min = 8, max = 128)
+    private Date lastModifiedOn;
+
+    @JsonProperty("isActive")
+    private Boolean isActive = true;
+
+    private Integer petOrigin;
+
     private String title;
 
-    @NotBlank
-    @Size(min = 64, max = 2048)
-    private String description;
+    private String summary;
 
-    @NotBlank
-    @Size(min = 1, max = 128)
-    private String type;
+    private Integer price;
 
-    @NotBlank
-    private float price;
-
-    @NotBlank
     private String location;
 
-    private int age;
+    private Integer age;
 
-    private String breed;
+    private Integer ageUnits;
 
-    private String gender;
+    @OneToMany(mappedBy = "ad")
+    private List<Photo> photos;
 
-    private boolean vaccinated;
+    @OneToMany
+    @JoinColumn(name = "properties_id")
+    private List<PetProperty> properties;
 
-    private String health;
-
-    private String color;
-
-    private String size;
-
-    private String furLength;
-
-    @ElementCollection
-    @CollectionTable(name = "ad_images", joinColumns = @JoinColumn(name = "ad_id"))
-    @Column(name = "image_base64")
-    @NotBlank
-    private List<String> images;
-
-    private boolean active = true;
-
-    private Date createdAt = new Date();
-
-    public Ad(User user, String title, String description, String type, float price, String location,
-              int age, String breed, String gender, boolean vaccinated, String health,
-              String color, String size, String furLength, List<String> images) {
-        this.user = user;
-        this.title = title;
-        this.description = description;
-        this.type = type;
-        this.price = price;
-        this.location = location;
-        this.age = age;
-        this.breed = breed;
-        this.gender = gender;
-        this.vaccinated = vaccinated;
-        this.health = health;
-        this.color = color;
-        this.size = size;
-        this.furLength = furLength;
-        this.images = images;
-    }
-
-    public Ad() {
-
-    }
+    @ManyToOne
+    @JoinColumn(name = "app_user_id")
+    private User appUser;
 }

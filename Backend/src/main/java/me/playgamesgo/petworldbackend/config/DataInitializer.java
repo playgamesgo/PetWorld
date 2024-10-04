@@ -1,4 +1,4 @@
-package me.playgamesgo.petworldbackend.utils;
+package me.playgamesgo.petworldbackend.config;
 
 import me.playgamesgo.petworldbackend.models.Role;
 import me.playgamesgo.petworldbackend.models.Roles;

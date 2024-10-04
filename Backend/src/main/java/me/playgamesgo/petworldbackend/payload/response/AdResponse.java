@@ -11,58 +11,47 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class AdResponse {
-    long id;
-    UserResponse user;
-    String title;
-    String description;
-    String type;
-    Float price;
-    String location;
-    Integer age;
-    String breed;
-    String gender;
-    Boolean vaccinated;
-    String health;
-    String color;
-    String size;
-    String furLength;
-    List<String> images;
-    Boolean active;
-    Date createdAt;
+    private Boolean isActive;
+    private Integer petOrigin;
+    private String title;
+    private Integer price;
+    private String summary;
+    private String location;
+    private Long id;
+    private Date createdOn;
+    private Date lastModifiedOn;
+    private Integer age;
+    private Integer ageUnits;
+    private List<PhotoResponse> photos;
+    private List<PetPropertyResponse> properties;
+    private UserResponse appUser;
 
-    public AdResponse(long id, UserResponse user, String title, String description, String type, Float price, String location,
-                      Integer age, String breed, String gender, Boolean vaccinated, String health,
-                      String color, String size, String furLength, List<String> images, Boolean active, Date createdAt) {
-        this.id = id;
-        this.user = user;
+    public AdResponse(Boolean isActive, Integer petOrigin, String title, Integer price, String summary,
+                      String location, Long id, Date createdOn, Date lastModifiedOn, Integer age, Integer ageUnits,
+                      List<PhotoResponse> photos, List<PetPropertyResponse> properties, UserResponse appUser) {
+        this.isActive = isActive;
+        this.petOrigin = petOrigin;
         this.title = title;
-        this.description = description;
-        this.type = type;
         this.price = price;
+        this.summary = summary;
         this.location = location;
+        this.id = id;
+        this.createdOn = createdOn;
+        this.lastModifiedOn = lastModifiedOn;
         this.age = age;
-        this.breed = breed;
-        this.gender = gender;
-        this.vaccinated = vaccinated;
-        this.health = health;
-        this.color = color;
-        this.size = size;
-        this.furLength = furLength;
-        this.images = images;
-        this.active = active;
-        this.createdAt = createdAt;
+        this.ageUnits = ageUnits;
+        this.photos = photos;
+        this.properties = properties;
+        this.appUser = appUser;
     }
 
-    public static List<AdResponse> fromList(List<Ad> ads) {
-        return ads.stream().map(AdResponse::fromAd).collect(Collectors.toList());
+    public static ListAdResponse fromList(List<Ad> ads) {
+        return new ListAdResponse(ads.stream().map(AdResponse::fromAd).collect(Collectors.toList()));
     }
 
     public static AdResponse fromAd(Ad ad) {
-        return new AdResponse(ad.getId(),
-                new UserResponse(ad.getUser().getId(), ad.getUser().getFirstName(), ad.getUser().getLastName(),
-                        ad.getUser().getEmail(), ad.getUser().getLocation(), ad.getUser().getCreatedAt()),
-                ad.getTitle(), ad.getDescription(), ad.getType(), ad.getPrice(), ad.getLocation(),
-                ad.getAge(), ad.getBreed(), ad.getGender(), ad.isVaccinated(), ad.getHealth(),
-                ad.getColor(), ad.getSize(), ad.getFurLength(), ad.getImages(), ad.isActive(), ad.getCreatedAt());
+        return new AdResponse(ad.getIsActive(), ad.getPetOrigin(), ad.getTitle(), ad.getPrice(), ad.getSummary(),
+                ad.getLocation(), ad.getId(), ad.getCreatedOn(), ad.getLastModifiedOn(), ad.getAge(), ad.getAgeUnits(),
+                PhotoResponse.fromList(ad.getPhotos()), PetPropertyResponse.fromList(ad.getProperties()), UserResponse.fromUser(ad.getAppUser()));
     }
 }

@@ -1,11 +1,6 @@
-import { ProposalResponse } from './app.model';
-
-const PET_RESPONSE_MOCK = {
+{
   "items": [
     {
-      "id": 172,
-      "createdOn": "2024-09-24T01:58:20.145311",
-      "lastModifiedOn": "2024-09-29T11:06:58.631075",
       "isActive": true,
       "petOrigin": 3,
       "title": "Домашній улюбленець",
@@ -547,6 +542,4 @@ const PET_RESPONSE_MOCK = {
     }
   ],
   "totalCount": 28
-} as unknown as ProposalResponse;
-
-export default PET_RESPONSE_MOCK;
+}

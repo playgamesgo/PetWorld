@@ -95,6 +95,7 @@ public class AuthController {
                 signUpRequest.getFirstName(),
                 signUpRequest.getLastName(),
                 signUpRequest.getEmail(),
+                signUpRequest.getPhoneNumber(),
                 signUpRequest.getLocation(),
                 encoder.encode(signUpRequest.getPassword()));
 
