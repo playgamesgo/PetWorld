@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators, NonNullableFormBuilder } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { FormControl, FormGroup, NonNullableFormBuilder } from '@angular/forms';
 import { catchError, EMPTY, map, switchMap, take, tap } from 'rxjs';
 
 import {
@@ -8,7 +8,9 @@ import {
   INPUT_LABELS,
   INPUT_TYPES,
   PLACEHOLDERS,
-  ROUTING_LIST, TOASTER_MESSAGE, TOASTER_TYPE
+  ROUTING_LIST,
+  TOASTER_MESSAGE,
+  TOASTER_TYPE
 } from '../../../app.config';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { InputComponent } from '../../../shared/components/input/input.component';
@@ -25,7 +27,7 @@ import { TokenService } from '../../../services/token.service';
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit {
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly router: Router = inject(Router);
   private readonly apiService: AuthApiService = inject(AuthApiService);
@@ -40,12 +42,26 @@ export class SignInComponent {
   readonly placeholders = PLACEHOLDERS;
 
   authForm!: FormGroup;
-  confirmCheckboxControl = new FormControl<boolean>(false);
+
+  get login(): FormControl {
+    return this.authForm.get('login') as FormControl;
+  }
+
+  get password(): FormControl {
+    return this.authForm.get('password') as FormControl;
+  }
+
+  ngOnInit(): void {
+    this.authForm = this.fb.group({
+      login: ['', [Validators.required, Validators.required]],
+      password: ['', [Validators.required]],
+    });
+  }
 
   signIn(): void {
     if (this.authForm.valid) {
       const requestBody = {
-        username: this.authForm.value.email,
+        username: this.authForm.value.login,
         password: this.authForm.value.password,
       };
 
@@ -62,7 +78,6 @@ export class SignInComponent {
           take(1),
           catchError(() => {
             this.toasterService.show(TOASTER_TYPE.ERROR, TOASTER_MESSAGE.SERVER_ERROR);
-
             return EMPTY;
           }),
         )

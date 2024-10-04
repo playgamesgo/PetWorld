@@ -9,7 +9,7 @@ import org.springframework.data.relational.core.mapping.Embedded;
 @Getter
 @Setter
 @Table(name = "pet_properties")
-public class PetProperty {
+public final class PetProperty {
     @Id
     @GeneratedValue
     private Long id;

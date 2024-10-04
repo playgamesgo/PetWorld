@@ -57,6 +57,7 @@ export interface User {
   prefers_phone_call: boolean;
   prefers_telegram: boolean;
   surname: string;
+  login: string;
 }
 
 export interface ProposalUser {

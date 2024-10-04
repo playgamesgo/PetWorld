@@ -7,7 +7,7 @@ import org.springframework.data.relational.core.mapping.Embedded;
 
 @Getter
 @Setter
-public class UpdateUserRequest {
+public final class UpdateUserRequest {
     @Embedded.Nullable
     private String firstName;
     @Embedded.Nullable

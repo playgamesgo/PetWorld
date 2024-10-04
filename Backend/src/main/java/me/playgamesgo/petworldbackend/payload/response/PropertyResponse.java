@@ -6,7 +6,7 @@ import me.playgamesgo.petworldbackend.models.Property;
 
 @Getter
 @Setter
-public class PropertyResponse {
+public final class PropertyResponse {
     private Long id;
     private String value;
     private PropertyResponse parentPropertyValue;

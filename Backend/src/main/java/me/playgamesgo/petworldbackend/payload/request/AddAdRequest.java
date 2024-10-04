@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class AddAdRequest {
+public final class AddAdRequest {
     @NotNull
     private Boolean isActive;
 

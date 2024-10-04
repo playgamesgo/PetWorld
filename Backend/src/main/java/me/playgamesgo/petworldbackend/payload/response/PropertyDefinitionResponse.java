@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class PropertyDefinitionResponse {
+public final class PropertyDefinitionResponse {
     private Long id;
     private String name;
     private Integer propertyDefinitionType;

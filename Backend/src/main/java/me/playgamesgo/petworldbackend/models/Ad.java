@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "ads")
-public class Ad {
+public final class Ad {
     @Id
     @GeneratedValue
     private Long id;

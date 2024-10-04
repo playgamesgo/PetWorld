@@ -32,7 +32,7 @@ export class AuthApiService {
     return this.apiService.forgotPassword(email);
   }
 
-  createNewPassword(password: string): Observable<string> {
-    return this.apiService.createNewPassword(password);
+  createNewPassword(password: string, token: string): Observable<string> {
+    return this.apiService.createNewPassword(password, token);
   }
 }

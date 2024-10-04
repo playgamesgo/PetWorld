@@ -3,30 +3,31 @@ package me.playgamesgo.petworldbackend.payload.request;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.relational.core.mapping.Embedded;
 
 @Setter
 @Getter
 public final class SignupRequest {
     @NotBlank
     @Size(min = 4, max = 16)
-    private String username;
+    private String login;
 
     @NotBlank
     @Size(max = 64)
-    private String firstName;
+    private String name;
 
     @NotBlank
     @Size(max = 64)
-    private String lastName;
+    private String surname;
 
     @NotBlank
     @Size(max = 64)
     @Email
     private String email;
 
-    @NotBlank
+    @Embedded.Nullable
     @Size(max = 16)
-    private String phoneNumber;
+    private String phoneNumber = null;
 
     @NotBlank
     private String location;

@@ -7,6 +7,9 @@
     <form class="signup-page__form">
       <ul class="signup-page__form-list">
         <li class="signup-page__form-list-item">
+          <pet-world-input [control]="login" [label]="inputLabels.login" [placeholder]="placeholders.login" />
+        </li>
+        <li class="signup-page__form-list-item">
           <pet-world-input [control]="name" [label]="inputLabels.name" [placeholder]="placeholders.name" />
         </li>
         <li class="signup-page__form-list-item">

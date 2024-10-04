@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public class DictionaryService {
-    private DictionaryRepository dictionaryRepository;
+    private final DictionaryRepository dictionaryRepository;
 
     public DictionaryService(DictionaryRepository dictionaryRepository) {
         this.dictionaryRepository = dictionaryRepository;

@@ -49,12 +49,11 @@ export class ApiService {
   }
 
   signIn(formValue: LoginRequestData): Observable<Token> {
-    const urlEncodedData = new URLSearchParams(Object.entries(formValue)).toString();
     const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/json',
     });
 
-    return this.httpClient.post<Token>(`${BACKEND_API_URL}${ENDPOINT.SIGN_IN}`, urlEncodedData, { headers });
+    return this.httpClient.post<Token>(`${BACKEND_API_URL}${ENDPOINT.SIGN_IN}`, formValue, { headers });
   }
 
   getUserByToken(token: string): Observable<User> {
@@ -67,9 +66,7 @@ export class ApiService {
     return this.httpClient.post<string>(`${BACKEND_API_URL}${ENDPOINT.FORGOT_PASSWORD}`, { email });
   }
 
-  createNewPassword(password: string): Observable<string> {
-    const body = { password, token: `Bearer ${this.tokenService.getToken()}` };
-
-    return this.httpClient.post<string>(`${BACKEND_API_URL}${ENDPOINT.RESET_PASSWORD}`, { body });
+  createNewPassword(password: string, token: string): Observable<string> {
+    return this.httpClient.post<string>(`${BACKEND_API_URL}${ENDPOINT.RESET_PASSWORD}`, {newPassword: password, token });
   }
 }

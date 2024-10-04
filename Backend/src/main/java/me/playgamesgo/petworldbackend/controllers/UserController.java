@@ -25,7 +25,7 @@ public class UserController {
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
         Optional<User> user = userService.getUserById(id);
         if (user.isPresent()) {
-            return ResponseEntity.ok(new UserResponse(user.get().getId(), user.get().getFirstName(), user.get().getLastName(),
+            return ResponseEntity.ok(new UserResponse(user.get().getId(), user.get().getUsername(), user.get().getFirstName(), user.get().getLastName(),
                     user.get().getEmail(), user.get().getPhoneNumber(), user.get().getLocation(), user.get().getCreatedAt()));
         } else {
             return ResponseEntity.badRequest().body(new MessageResponse("User not found"));

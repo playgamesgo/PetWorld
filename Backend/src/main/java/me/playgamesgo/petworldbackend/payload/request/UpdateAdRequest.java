@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class UpdateAdRequest {
+public final class UpdateAdRequest {
     @Embedded.Nullable
     private Boolean isActive;
 
