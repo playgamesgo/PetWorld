@@ -11,6 +11,7 @@ import me.playgamesgo.petworldbackend.repository.PetPropertyRepository;
 import me.playgamesgo.petworldbackend.repository.PhotoRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -143,5 +144,9 @@ public class AdService {
         petPropertyRepository.deleteAllByAdId(id);
         photoRepository.deleteAllByAdId(id);
         adRepository.deleteById(id);
+    }
+
+    public Page<Ad> findAll(Specification<Ad> spec, Pageable pageable) {
+        return adRepository.findAll(spec, pageable);
     }
 }

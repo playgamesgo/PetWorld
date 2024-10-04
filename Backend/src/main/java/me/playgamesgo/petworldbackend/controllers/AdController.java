@@ -9,14 +9,19 @@ import me.playgamesgo.petworldbackend.payload.response.ListAdResponse;
 import me.playgamesgo.petworldbackend.payload.response.MessageResponse;
 import me.playgamesgo.petworldbackend.services.AdService;
 import me.playgamesgo.petworldbackend.services.UserService;
+import me.playgamesgo.petworldbackend.specifications.FilterParser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -32,9 +37,26 @@ public class AdController {
 
     @GetMapping
     public ListAdResponse getAllAds(@RequestParam(defaultValue = "0") int from,
-                                    @RequestParam(defaultValue = "20") int limit) {
-        Pageable pageable = PageRequest.of(from, limit);
-        Page<Ad> ads = adService.findAll(pageable);
+                                    @RequestParam(defaultValue = Integer.MAX_VALUE + "") int limit,
+                                    @RequestParam(required = false) String $filter,
+                                    @RequestParam(required = false) String $orderby) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdOn");
+        if ($orderby != null) {
+            List<Sort.Order> orders = new ArrayList<>();
+            for (String order : $orderby.split(",")) {
+                String[] parts = order.split(" ");
+                if (parts.length == 2) {
+                    Sort.Direction direction = parts[1].equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+                    orders.add(new Sort.Order(direction, parts[0]));
+                } else {
+                    orders.add(new Sort.Order(Sort.Direction.ASC, parts[0]));
+                }
+            }
+            sort = Sort.by(orders);
+        }
+        Pageable pageable = PageRequest.of(from, limit, sort);
+        Specification<Ad> spec = FilterParser.parseFilter($filter);
+        Page<Ad> ads = adService.findAll(spec, pageable);
         return AdResponse.fromList(ads.getContent());
     }
 
