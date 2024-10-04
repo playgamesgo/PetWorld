@@ -10,6 +10,14 @@ import { loaderInterceptor } from './app/services/interceptors/loader.intercepto
 import configLoader from './app/shared/utils/config-loader';
 import { DictionaryService } from './app/services/dictionary.service';
 import { tokenInterceptor } from './app/services/interceptors/token.interceptor';
+import { AuthApiService } from './app/auth/services/auth-api.service';
+
+function initializeApp(authApiService: AuthApiService): () => Promise<void> {
+  return () => new Promise((resolve) => {
+    authApiService.getUserByToken(localStorage.getItem('TOKEN') || '').subscribe();
+    resolve();
+  });
+}
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -22,6 +30,12 @@ bootstrapApplication(AppComponent, {
       useFactory: configLoader,
       multi: true,
       deps: [DictionaryService, Router],
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      multi: true,
+      deps: [AuthApiService],
     },
   ],
 }).catch(err => console.error(err));

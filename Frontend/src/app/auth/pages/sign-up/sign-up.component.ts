@@ -1,12 +1,13 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-import { catchError, EMPTY, take, tap } from 'rxjs';
+import {Component, inject, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
+import {RouterLink} from '@angular/router';
+import {catchError, EMPTY, map, take, tap} from 'rxjs';
 
-import { InputComponent } from '../../../shared/components/input/input.component';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { CheckboxComponent } from '../../../shared/components/checkbox/checkbox.component';
-import { SelectComponent } from '../../../shared/components/select/select.component';
+import {InputComponent} from '../../../shared/components/input/input.component';
+import {ButtonComponent} from '../../../shared/components/button/button.component';
+import {CheckboxComponent} from '../../../shared/components/checkbox/checkbox.component';
+import {SelectComponent} from '../../../shared/components/select/select.component';
+import {Router} from '@angular/router';
 import {
   BUTTON_CONTENT,
   INPUT_LABELS,
@@ -15,11 +16,12 @@ import {
   TOASTER_MESSAGE,
   TOASTER_TYPE
 } from '../../../app.config';
-import type { SignUpData } from '../../auth.model';
+import type {LoginRequestData, SignUpData} from '../../auth.model';
 import CITY_LIST from '../../../../city-db';
-import { AuthApiService } from '../../services/auth-api.service';
-import { UserService } from '../../../services/user.service';
-import { ToasterService } from '../../../services/toaster.service';
+import {AuthApiService} from '../../services/auth-api.service';
+import {UserService} from '../../../services/user.service';
+import {ToasterService} from '../../../services/toaster.service';
+import {TokenService} from "../../../services/token.service";
 
 @Component({
   selector: 'pet-world-sign-up',
@@ -40,9 +42,15 @@ export class SignUpComponent implements OnInit {
   private readonly apiService = inject(AuthApiService);
   private readonly toasterService = inject(ToasterService);
   private readonly userService = inject(UserService);
+  private readonly router = inject(Router);
+  private readonly tokenService = inject(TokenService);
   readonly confirmCheckboxControl = new FormControl(false);
 
   private authForm!: FormGroup;
+
+  get login(): FormControl {
+    return this.authForm.get('login') as FormControl;
+  }
 
   get name(): FormControl {
     return this.authForm.get('name') as FormControl;
@@ -81,9 +89,24 @@ export class SignUpComponent implements OnInit {
       this.apiService
         .signUp(this.getRequestBody())
         .pipe(
-          tap(this.userService.setUser),
+          tap((response) => {
+            this.userService.setUser(response);
+            this.router.navigate([this.routingList.me]);
+
+            const request: LoginRequestData = {
+              username: this.login.value,
+              password: this.password.value,
+            }
+
+            this.apiService
+              .signIn(request)
+              .pipe(
+                tap(token => this.tokenService.setToken(token)),
+                map(token => token.access_token)).subscribe();
+          }),
           take(1),
-          catchError(() => {
+          catchError((error: Error) => {
+            console.error('Server error: ' + error);
             this.toasterService.show(TOASTER_TYPE.ERROR, TOASTER_MESSAGE.SERVER_ERROR);
             return EMPTY;
           }),
@@ -94,12 +117,13 @@ export class SignUpComponent implements OnInit {
 
   protected initForm(): FormGroup {
     return this.fb.group({
-      email: ['', { validators: [Validators.required, Validators.email] }],
-      password: ['', { validators: [Validators.required] }],
-      name: ['', { validators: [Validators.required] }],
-      surname: ['', { validators: [Validators.required] }],
-      location: [null as unknown as string, { validators: [Validators.required] }],
-      confirmPassword: ['', { validators: [Validators.required] }],
+      email: ['', {validators: [Validators.required, Validators.email]}],
+      password: ['', {validators: [Validators.required]}],
+      login: ['', {validators: [Validators.required]}],
+      name: ['', {validators: [Validators.required]}],
+      surname: ['', {validators: [Validators.required]}],
+      location: [null as unknown as string, {validators: [Validators.required]}],
+      confirmPassword: ['', {validators: [Validators.required]}],
     });
   }
 
@@ -107,6 +131,7 @@ export class SignUpComponent implements OnInit {
     return {
       email: this.email.value,
       password: this.password.value,
+      login: this.login.value,
       name: this.name.value,
       surname: this.surname.value,
       location: this.location.value,

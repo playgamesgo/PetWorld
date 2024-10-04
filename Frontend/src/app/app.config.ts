@@ -50,6 +50,7 @@ export enum BUTTON_CONTENT {
 export enum INPUT_LABELS {
   email = 'Електронна пошта',
   name = 'Імʼя',
+  login = 'Логін',
   surname = 'Прізвище',
   address = 'Локація',
   password = 'Пароль',
@@ -83,6 +84,7 @@ export enum PLACEHOLDERS {
   email = 'Введіть вашу пошту',
   password = 'Введіть пароль',
   confirmPassword = 'Повторіть пароль',
+  login = 'Введіть логін',
   name = 'Введіть імʼя',
   surname = 'Введіть прізвище',
   summary = 'Вкажіть особливості характеру, звички, потреби у догляді, або будь-яку іншу важливу інформацію про тварину',
@@ -142,11 +144,11 @@ export const enum ENDPOINT {
   PROPOSALS = 'ads',
 
   // PYTHON
-  SIGN_UP = 'v1/auth/register',
-  SIGN_IN = 'v1/auth/login',
-  ME = 'v1/users/me',
-  FORGOT_PASSWORD = 'v1/auth/forgot-password',
-  RESET_PASSWORD = 'v1/auth/reset-password',
+  SIGN_UP = 'auth/signup',
+  SIGN_IN = 'auth/signin',
+  ME = 'auth/me',
+  FORGOT_PASSWORD = 'auth/forgot-password',
+  RESET_PASSWORD = 'auth/reset-password',
 }
 
 export const enum SEARCH_NAMES {

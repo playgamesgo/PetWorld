@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class PhotoResponse {
+public final class PhotoResponse {
     private Long id;
     private String url;
     private String image;

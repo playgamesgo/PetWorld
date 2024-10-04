@@ -32,10 +32,6 @@ public class AdService {
         this.petPropertyRepository = petPropertyRepository;
     }
 
-    public Page<Ad> findAll(Pageable pageable) {
-        return adRepository.findAll(pageable);
-    }
-
     public Optional<Ad> findById(Long id) {
         return adRepository.findById(id);
     }

@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ListAdResponse {
+public final class ListAdResponse {
     private List<AdResponse> items;
     private Integer totalCount;
 

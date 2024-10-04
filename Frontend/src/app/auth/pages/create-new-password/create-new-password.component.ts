@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 import { take } from 'rxjs';
 
 import { ButtonComponent } from '../../../shared/components/button/button.component';
@@ -14,7 +15,7 @@ import { AuthApiService } from '../../services/auth-api.service';
   templateUrl: './create-new-password.component.html',
   styleUrl: './create-new-password.component.scss',
 })
-export class CreateNewPasswordComponent {
+export class CreateNewPasswordComponent implements OnInit {
   readonly buttonContent = BUTTON_CONTENT;
   readonly inputLabels = INPUT_LABELS;
   readonly placeholders = PLACEHOLDERS;
@@ -23,6 +24,15 @@ export class CreateNewPasswordComponent {
   readonly passwordDuplicate = new FormControl<string>('', Validators.required);
 
   private readonly apiService = inject(AuthApiService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private token: string | null = null;
+
+  ngOnInit(): void {
+    this.route.queryParamMap.subscribe(params => {
+      this.token = params.get('token');
+    });
+  }
 
   get isPasswordInvalid(): boolean {
     return (
@@ -31,6 +41,10 @@ export class CreateNewPasswordComponent {
   }
 
   onChangePassword(): void {
-    if (!this.isPasswordInvalid) this.apiService.createNewPassword(this.password.value!).pipe(take(1)).subscribe();
+    if (!this.isPasswordInvalid && this.token) {
+      this.apiService.createNewPassword(this.password.value!, this.token).pipe(take(1)).subscribe(() => {
+        this.router.navigate(['/auth/sign-in']);
+      });
+    }
   }
 }

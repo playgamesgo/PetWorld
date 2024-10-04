@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-public class AdResponse {
+public final class AdResponse {
     private Boolean isActive;
     private Integer petOrigin;
     private String title;

@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "photos")
-public class Photo {
+public final class Photo {
     @Id
     @GeneratedValue
     private Long id;

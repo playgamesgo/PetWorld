@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-public class PetPropertyResponse {
+public final class PetPropertyResponse {
     private Long id;
     private String customValue;
     private PropertyDefinitionResponse propertyDefinition;
