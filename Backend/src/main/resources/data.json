@@ -1,0 +1,375 @@
+[
+  {
+    "isActive": true,
+    "petOrigin": 3,
+    "title": "Домашній улюбленець",
+    "price": 300,
+    "summary": "Трошки гризе дроти і меблі",
+    "location": "Бабина",
+    "age": 330,
+    "ageUnits": 30,
+    "photos": [
+      {
+        "url": "https://stitmarathonprod.blob.core.windows.net/pet-images/a0a5f4ee-22d1-482a-a445-778d9df7af13.jpg"
+      }
+    ],
+    "properties": [
+      {
+        "propertyDefinition": {
+          "id": 1,
+          "name": "Вид тварини"
+        },
+        "predefinedValue": {
+          "id": 3,
+          "value": "Гризуни"
+        }
+      },
+      {
+        "propertyDefinition": {
+          "id": 2,
+          "name": "Різновид"
+        },
+        "predefinedValue": {
+          "id": 91,
+          "value": "Песець",
+          "parentPropertyValue": {
+            "id": 3,
+            "value": "Гризуни"
+          }
+        }
+      },
+      {
+        "propertyDefinition": {
+          "id": 3,
+          "name": "Стать"
+        },
+        "predefinedValue": {
+          "id": 9,
+          "value": "Дівчинка"
+        }
+      },
+      {
+        "propertyDefinition": {
+          "id": 4,
+          "name": "Забарвлення"
+        },
+        "predefinedValue": {
+          "id": 15,
+          "value": "Кремове"
+        }
+      },
+      {
+        "customValue": "customValue",
+        "propertyDefinition": {
+          "id": 6,
+          "name": "Вакцинація",
+          "category": "Health"
+        }
+      },
+      {
+        "customValue": "customValue",
+        "propertyDefinition": {
+          "id": 5,
+          "name": "Стерилізація",
+          "category": "Health"
+        }
+      },
+      {
+        "customValue": "customValue",
+        "propertyDefinition": {
+          "id": 7,
+          "name": "Чіп",
+          "category": "Health"
+        }
+      },
+      {
+        "customValue": "customValue",
+        "propertyDefinition": {
+          "id": 8,
+          "name": "Обробка від паразитів",
+          "category": "Health"
+        }
+      },
+      {
+        "customValue": "customValue",
+        "propertyDefinition": {
+          "id": 11,
+          "name": "FCI/KCY",
+          "category": "Documents"
+        }
+      },
+      {
+        "customValue": "customValue",
+        "propertyDefinition": {
+          "id": 12,
+          "name": "Щеняча метрика",
+          "category": "Documents"
+        }
+      }
+    ]
+  },
+  {
+    "isActive": true,
+    "petOrigin": 3,
+    "title": "Котик-муркотик",
+    "price": 1500,
+    "summary": "",
+    "location": "Кричанівка",
+    "age": 30,
+    "ageUnits": 30,
+    "photos": [
+      {
+        "url": "https://stitmarathonprod.blob.core.windows.net/pet-images/1de3ec5c-a2c7-4db5-a4de-b2a7bc600eaa.jpg"
+      },
+      {
+        "url": "https://stitmarathonprod.blob.core.windows.net/pet-images/583cf4ad-a89e-4a59-883f-26b110ba8bce.jpg"
+      }
+    ],
+    "properties": [
+      {
+        "propertyDefinition": {
+          "id": 1,
+          "name": "Вид тварини"
+        },
+        "predefinedValue": {
+          "id": 2,
+          "value": "Коти"
+        }
+      },
+      {
+        "propertyDefinition": {
+          "id": 2,
+          "name": "Різновид"
+        },
+        "predefinedValue": {
+          "id": 48,
+          "value": "Мейн-кун",
+          "parentPropertyValue": {
+            "id": 2,
+            "value": "Коти"
+          }
+        }
+      },
+      {
+        "propertyDefinition": {
+          "id": 3,
+          "name": "Стать"
+        },
+        "predefinedValue": {
+          "id": 8,
+          "value": "Хлопчик"
+        }
+      },
+      {
+        "propertyDefinition": {
+          "id": 4,
+          "name": "Забарвлення"
+        },
+        "predefinedValue": {
+          "id": 20,
+          "value": "Блакитне"
+        }
+      },
+      {
+        "customValue": "customValue",
+        "propertyDefinition": {
+          "id": 6,
+          "name": "Вакцинація",
+          "category": "Health"
+        }
+      },
+      {
+        "customValue": "customValue",
+        "propertyDefinition": {
+          "id": 5,
+          "name": "Стерилізація",
+          "category": "Health"
+        }
+      },
+      {
+        "customValue": "customValue",
+        "propertyDefinition": {
+          "id": 12,
+          "name": "Щеняча метрика",
+          "category": "Documents"
+        }
+      },
+      {
+        "customValue": "customValue",
+        "propertyDefinition": {
+          "id": 11,
+          "name": "FCI/KCY",
+          "category": "Documents"
+        }
+      },
+      {
+        "customValue": "customValue",
+        "propertyDefinition": {
+          "id": 10,
+          "name": "Родовід",
+          "category": "Documents"
+        }
+      }
+    ]
+  },
+  {
+    "isActive": true,
+    "petOrigin": 3,
+    "title": "Дуже добра собачка",
+    "price": 5000,
+    "summary": "Найдобріша собачку, яку я тільки бачив. Завжди посміхається на всі зубки (дивіться фото). Не хочу з нею розставатися, та дружина каже, що я люблю Елі (ім'я собачки) більше, ніж її.",
+    "location": "Абрамівська Долина",
+    "age": 2555,
+    "ageUnits": 365,
+    "photos": [
+      {
+        "url": "https://stitmarathonprod.blob.core.windows.net/pet-images/362daefc-647b-4b1d-a35a-7adad3d31732.jpg"
+      },
+      {
+        "url": "https://stitmarathonprod.blob.core.windows.net/pet-images/64b2b10c-1665-47ea-90e2-a223c7fdb346.jpg"
+      },
+      {
+        "url": "https://stitmarathonprod.blob.core.windows.net/pet-images/3ee565fe-e2f6-49a7-8601-bd2bbafe7501.jpg"
+      }
+    ],
+    "properties": [
+      {
+        "propertyDefinition": {
+          "id": 1,
+          "name": "Вид тварини"
+        },
+        "predefinedValue": {
+          "id": 1,
+          "value": "Собаки"
+        }
+      },
+      {
+        "propertyDefinition": {
+          "id": 2,
+          "name": "Різновид"
+        },
+        "predefinedValue": {
+          "id": 156,
+          "value": "Інше",
+          "parentPropertyValue": {
+            "id": 1,
+            "value": "Собаки"
+          }
+        }
+      },
+      {
+        "propertyDefinition": {
+          "id": 3,
+          "name": "Стать"
+        },
+        "predefinedValue": {
+          "id": 9,
+          "value": "Дівчинка"
+        }
+      },
+      {
+        "propertyDefinition": {
+          "id": 4,
+          "name": "Забарвлення"
+        },
+        "predefinedValue": {
+          "id": 12,
+          "value": "Чорне"
+        }
+      },
+      {
+        "customValue": "customValue",
+        "propertyDefinition": {
+          "id": 7,
+          "name": "Чіп",
+          "category": "Health"
+        }
+      }
+    ]
+  },
+  {
+    "isActive": true,
+    "petOrigin": 1,
+    "title": "Лев",
+    "price": 24,
+    "summary": "Очі бездонні",
+    "location": "Абрамівська Долина",
+    "age": 243,
+    "ageUnits": 30,
+    "photos": [
+      {
+        "url": "https://stitmarathonprod.blob.core.windows.net/pet-images/ab8d4ec6-8f8d-4bfd-9e53-8489a40383e1.jpg"
+      }
+    ],
+    "properties": [
+      {
+        "propertyDefinition": {
+          "id": 1,
+          "name": "Вид тварини"
+        },
+        "predefinedValue": {
+          "id": 5,
+          "value": "Птахи"
+        }
+      },
+      {
+        "propertyDefinition": {
+          "id": 2,
+          "name": "Різновид"
+        },
+        "predefinedValue": {
+          "id": 82,
+          "value": "Нерозлучники",
+          "parentPropertyValue": {
+            "id": 5,
+            "value": "Птахи"
+          }
+        }
+      },
+      {
+        "propertyDefinition": {
+          "id": 3,
+          "name": "Стать"
+        },
+        "predefinedValue": {
+          "id": 8,
+          "value": "Хлопчик"
+        }
+      },
+      {
+        "propertyDefinition": {
+          "id": 4,
+          "name": "Забарвлення"
+        },
+        "predefinedValue": {
+          "id": 15,
+          "value": "Кремове"
+        }
+      },
+      {
+        "customValue": "customValue",
+        "propertyDefinition": {
+          "id": 5,
+          "name": "Стерилізація",
+          "category": "Health"
+        }
+      },
+      {
+        "customValue": "customValue",
+        "propertyDefinition": {
+          "id": 6,
+          "name": "Вакцинація",
+          "category": "Health"
+        }
+      },
+      {
+        "customValue": "customValue",
+        "propertyDefinition": {
+          "id": 10,
+          "name": "Родовід",
+          "category": "Documents"
+        }
+      }
+    ]
+  }
+]

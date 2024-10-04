@@ -27,12 +27,17 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
     public void updateUser(Long id, UpdateUserRequest userDetails) {
         User user = userRepository.findById(id).orElse(null);
         if (user == null) return;
         if (userDetails.getFirstName() != null) user.setFirstName(userDetails.getFirstName());
         if (userDetails.getLastName() != null) user.setLastName(userDetails.getLastName());
         if (userDetails.getEmail() != null) user.setEmail(userDetails.getEmail());
+        if (userDetails.getPhoneNumber() != null) user.setPhoneNumber(userDetails.getPhoneNumber());
         if (userDetails.getLocation() != null) user.setLocation(userDetails.getLocation());
         if (userDetails.getPassword() != null) user.setPassword(userDetails.getPassword());
         userRepository.save(user);

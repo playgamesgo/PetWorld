@@ -3,8 +3,7 @@ import { Observable, tap } from 'rxjs';
 
 import { ApiService } from '../../services/api.service';
 import { FilterService } from '../../services/filter.service';
-import type { FilterFormValue, PetRequestBody, ProposalItem, ProposalResponse } from '../../app.model';
-import PET_RESPONSE_MOCK from '../../pet-response.mock';
+import type { PetRequestBody, ProposalItem, ProposalResponse } from '../../app.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +11,14 @@ import PET_RESPONSE_MOCK from '../../pet-response.mock';
 export class PetApiService {
   private apiService = inject(ApiService);
   private filterService = inject(FilterService);
-  private readonly petList$ = signal<ProposalItem[]>(PET_RESPONSE_MOCK.items);
+  private readonly petList$ = signal<ProposalItem[]>([]);
 
   readonly petList = this.petList$.asReadonly();
+
+
+  constructor() {
+    this.getProposalList().subscribe();
+  }
 
   addProposal(proposalData: PetRequestBody): Observable<any> {
     return this.apiService.addProposal(proposalData);

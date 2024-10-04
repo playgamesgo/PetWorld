@@ -16,6 +16,8 @@ public class UpdateUserRequest {
     @Email
     private String email;
     @Embedded.Nullable
+    private String phoneNumber;
+    @Embedded.Nullable
     private String location;
     @Embedded.Nullable
     private String password;

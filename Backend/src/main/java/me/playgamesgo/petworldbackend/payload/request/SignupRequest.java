@@ -25,6 +25,10 @@ public final class SignupRequest {
     private String email;
 
     @NotBlank
+    @Size(max = 16)
+    private String phoneNumber;
+
+    @NotBlank
     private String location;
 
     @NotBlank
