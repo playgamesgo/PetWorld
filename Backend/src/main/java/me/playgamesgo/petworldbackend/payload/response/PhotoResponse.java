@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import me.playgamesgo.petworldbackend.models.Photo;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -14,7 +16,10 @@ public final class PhotoResponse {
     private String image;
 
     public static List<PhotoResponse> fromList(List<Photo> photos) {
-        return photos.stream().map(PhotoResponse::fromPhoto).toList();
+        if (photos == null) {
+            photos = Collections.emptyList();
+        }
+        return photos.stream().map(PhotoResponse::fromPhoto).collect(Collectors.toList());
     }
 
     private static PhotoResponse fromPhoto(Photo photo) {

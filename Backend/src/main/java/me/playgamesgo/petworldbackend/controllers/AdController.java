@@ -57,6 +57,9 @@ public class AdController {
         Pageable pageable = PageRequest.of(from, limit, sort);
         Specification<Ad> spec = FilterParser.parseFilter($filter);
         Page<Ad> ads = adService.findAll(spec, pageable);
+        if (ads == null || ads.isEmpty()) {
+            return new ListAdResponse(new ArrayList<>());
+        }
         return AdResponse.fromList(ads.getContent());
     }
 
