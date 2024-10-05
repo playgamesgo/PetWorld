@@ -44,6 +44,9 @@ public final class UserResponse {
     }
 
     public static UserResponse fromUser(User user) {
+        if (user == null) {
+            return null;
+        }
         return new UserResponse(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoneNumber(), user.getLocation(), user.getCreatedAt());
     }
 }
