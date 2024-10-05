@@ -145,4 +145,8 @@ public class AdService {
     public Page<Ad> findAll(Specification<Ad> spec, Pageable pageable) {
         return adRepository.findAll(spec, pageable);
     }
+
+    public List<Ad> findAll() {
+        return adRepository.findAll();
+    }
 }

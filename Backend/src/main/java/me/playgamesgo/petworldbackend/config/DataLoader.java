@@ -67,6 +67,8 @@ public class DataLoader implements CommandLineRunner {
             return;
         }
 
+        if (!dictionaryService.getAllDictionaries().isEmpty()) return;
+
         ObjectMapper mapper = new ObjectMapper();
         TypeReference<List<Dictionary>> typeReference = new TypeReference<>() {};
         InputStream inputStream = new ClassPathResource("dictionary.json").getInputStream();
@@ -104,6 +106,8 @@ public class DataLoader implements CommandLineRunner {
             log.warn("Data file not found, skipping import");
             return;
         }
+
+        if (!adService.findAll().isEmpty()) return;
 
         Optional<User> user = userService.findById(1L);
 
