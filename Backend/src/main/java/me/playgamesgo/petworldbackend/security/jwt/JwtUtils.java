@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.util.Date;
 
+/**
+ * Utility class for handling JWT operations such as generating, parsing, and validating tokens.
+ */
 @Component
 public final class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
@@ -23,10 +26,17 @@ public final class JwtUtils {
     @Value("${backend.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
+    /**
+     * Generates a JWT token based on the authenticated user's details.
+     *
+     * @param authentication the authentication object containing user details.
+     * @return a JWT token as a String.
+     */
     public String generateJwtToken(Authentication authentication) {
-
+        // Get the user details from the authentication object.
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
+        // Generate the JWT token.
         return Jwts.builder()
                 .subject((userPrincipal.getUsername()))
                 .issuedAt(new Date())
@@ -35,15 +45,33 @@ public final class JwtUtils {
                 .compact();
     }
 
+    /**
+     * Retrieves the secret key used for signing the JWT.
+     *
+     * @return the secret key.
+     */
     private SecretKey key() {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
 
+    /**
+     * Extracts the username from the given JWT token.
+     *
+     * @param token the JWT token.
+     * @return the username as a String.
+     */
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().verifyWith(key()).build().parseSignedClaims(token).getPayload().getSubject();
     }
 
+    /**
+     * Validates the given JWT token.
+     *
+     * @param authToken the JWT token to validate.
+     * @return true if the token is valid, false otherwise.
+     */
     public boolean validateJwtToken(String authToken) {
+        // Attempt to parse and verify the JWT token.
         try {
             Jwts.parser().verifyWith(key()).build().parse(authToken);
             return true;

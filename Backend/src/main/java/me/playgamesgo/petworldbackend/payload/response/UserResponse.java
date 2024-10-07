@@ -7,6 +7,9 @@ import me.playgamesgo.petworldbackend.models.User;
 
 import java.util.Date;
 
+/**
+ * Response payload for user details.
+ */
 @Getter
 @Setter
 public final class UserResponse {

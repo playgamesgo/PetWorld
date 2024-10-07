@@ -8,6 +8,9 @@ import me.playgamesgo.petworldbackend.models.PetProperty;
 
 import java.util.List;
 
+/**
+ * Request payload for adding a new advertisement.
+ */
 @Getter
 @Setter
 public final class AddAdRequest {

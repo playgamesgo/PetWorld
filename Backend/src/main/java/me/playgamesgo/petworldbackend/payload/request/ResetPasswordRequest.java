@@ -4,6 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Request payload for reset password functionality.
+ */
 @Getter
 @Setter
 public final class ResetPasswordRequest {

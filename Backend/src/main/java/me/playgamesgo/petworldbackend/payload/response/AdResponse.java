@@ -8,6 +8,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Response payload for advertisement details.
+ */
 @Getter
 @Setter
 public final class AdResponse {

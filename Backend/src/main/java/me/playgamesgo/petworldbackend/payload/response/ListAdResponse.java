@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * Response payload for a list of advertisements.
+ */
 @Getter
 @Setter
 public final class ListAdResponse {

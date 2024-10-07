@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Role model class
+ */
 @Entity
 @Getter
 @Setter

@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.relational.core.mapping.Embedded;
 
+/**
+ * Request payload for user signup functionality.
+ */
 @Setter
 @Getter
 public final class SignupRequest {

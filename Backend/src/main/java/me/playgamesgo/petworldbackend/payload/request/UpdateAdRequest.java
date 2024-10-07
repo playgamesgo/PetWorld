@@ -8,6 +8,9 @@ import org.springframework.data.relational.core.mapping.Embedded;
 
 import java.util.List;
 
+/**
+ * Request payload for updating an advertisement.
+ */
 @Getter
 @Setter
 public final class UpdateAdRequest {

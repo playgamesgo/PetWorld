@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Service class for managing ads.
+ */
 @Service
 public class AdService {
     private final AdRepository adRepository;
@@ -32,11 +35,25 @@ public class AdService {
         this.petPropertyRepository = petPropertyRepository;
     }
 
+    /**
+     * Finds an Ad by its ID.
+     *
+     * @param id the ID of the Ad to find.
+     * @return an Optional containing the found Ad, or empty if not found.
+     */
     public Optional<Ad> findById(Long id) {
         return adRepository.findById(id);
     }
 
+    /**
+     * Creates a new Ad.
+     *
+     * @param addAdRequest the request payload containing Ad details.
+     * @param user the user creating the Ad.
+     * @return the created Ad.
+     */
     public Ad createAd(AddAdRequest addAdRequest, User user) {
+        // Create the Ad.
         Ad ad = new Ad();
         ad.setIsActive(addAdRequest.getIsActive());
         ad.setPetOrigin(addAdRequest.getPetOrigin());
@@ -50,6 +67,7 @@ public class AdService {
 
         ad = adRepository.save(ad);
 
+        // Create the Photos and Properties.
         Ad finalAd = ad;
         List<Photo> photos = addAdRequest.getPhotos().stream()
                 .map(photoRequest -> {
@@ -77,13 +95,22 @@ public class AdService {
         return adRepository.save(ad);
     }
 
+    /**
+     * Updates an existing Ad.
+     *
+     * @param id the ID of the Ad to update.
+     * @param updateAdRequest the request payload containing updated Ad details.
+     * @return true if the Ad was updated, false otherwise.
+     */
     public boolean updateAd(Long id, UpdateAdRequest updateAdRequest) {
+        // Find the Ad.
         Optional<Ad> optionalAd = adRepository.findById(id);
 
+        // If the Ad does not exist, return false.
         if (optionalAd.isEmpty()) return false;
 
+        // Update the Ad.
         Ad ad = optionalAd.get();
-
         if (updateAdRequest.getIsActive() != null) ad.setIsActive(updateAdRequest.getIsActive());
         if (updateAdRequest.getPetOrigin() != null) ad.setPetOrigin(updateAdRequest.getPetOrigin());
         if (updateAdRequest.getTitle() != null) ad.setTitle(updateAdRequest.getTitle());
@@ -96,8 +123,8 @@ public class AdService {
 
         ad = adRepository.save(ad);
 
+        // Update the Photos and Properties.
         Ad finalAd = ad;
-
         if (updateAdRequest.getPhotos() != null) {
             photoRepository.deleteAllByAdId(ad.getId());
             List<Photo> photos = updateAdRequest.getPhotos().stream()
@@ -131,10 +158,21 @@ public class AdService {
         return true;
     }
 
+    /**
+     * Checks if an Ad exists by its ID.
+     *
+     * @param id the ID of the Ad to check.
+     * @return true if the Ad exists, false otherwise.
+     */
     public boolean existsById(Long id) {
         return adRepository.existsById(id);
     }
 
+    /**
+     * Deletes an Ad by its ID.
+     *
+     * @param id the ID of the Ad to delete.
+     */
     @Transactional
     public void deleteById(Long id) {
         petPropertyRepository.deleteAllByAdId(id);
@@ -142,10 +180,22 @@ public class AdService {
         adRepository.deleteById(id);
     }
 
+    /**
+     * Finds all Ads with pagination and filtering.
+     *
+     * @param spec the specification for filtering Ads.
+     * @param pageable the pagination information.
+     * @return a page of Ads.
+     */
     public Page<Ad> findAll(Specification<Ad> spec, Pageable pageable) {
         return adRepository.findAll(spec, pageable);
     }
 
+    /**
+     * Finds all Ads.
+     *
+     * @return a list of all Ads.
+     */
     public List<Ad> findAll() {
         return adRepository.findAll();
     }

@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import me.playgamesgo.petworldbackend.models.Property;
 
+/**
+ * Response payload for property details.
+ */
 @Getter
 @Setter
 public final class PropertyResponse {

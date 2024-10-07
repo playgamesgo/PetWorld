@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service class for managing properties.
+ */
 @Service
 public class PropertyService {
     private final PropertyRepository propertyRepository;
@@ -14,6 +17,11 @@ public class PropertyService {
         this.propertyRepository = propertyRepository;
     }
 
+    /**
+     * Saves a list of properties.
+     *
+     * @param properties the list of Property entities to save.
+     */
     public void saveAll(List<Property> properties) {
         propertyRepository.saveAll(properties);
     }

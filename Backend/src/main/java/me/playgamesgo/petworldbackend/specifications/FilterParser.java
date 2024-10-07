@@ -8,15 +8,27 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-// Utility class to parse the filter string
+/**
+ * Utility class to parse the filter string and create specifications for querying Ad entities.
+ */
 public class FilterParser {
+
+    /**
+     * Parses the filter string and creates a Specification for querying Ad entities.
+     *
+     * @param filter the filter string to parse.
+     * @return a Specification for querying Ad entities.
+     */
     public static Specification<Ad> parseFilter(String filter) {
+        // Create an empty specification
         Specification<Ad> spec = Specification.where(null);
 
+        // If the filter is null or empty, return null
         if (filter == null || filter.isEmpty()) {
             return null;
         }
 
+        // Initialize the min and max price and age to null
         Integer minPrice = null;
         Integer maxPrice = null;
         Integer minAge = null;
@@ -78,6 +90,7 @@ public class FilterParser {
             }
         }
 
+        // Add the price and age specifications to the spec
         if (minPrice != null && maxPrice != null) {
             spec = spec.and(AdSpecifications.priceBetween(minPrice, maxPrice));
         } else if (minPrice != null) {
@@ -86,6 +99,7 @@ public class FilterParser {
             spec = spec.and(AdSpecifications.priceBetween(0, maxPrice));
         }
 
+        // Add the age specifications to the spec
         if (minAge != null && maxAge != null) {
             spec = spec.and(AdSpecifications.ageBetween(minAge, maxAge));
         } else if (minAge != null) {
@@ -97,8 +111,16 @@ public class FilterParser {
         return spec;
     }
 
+    /**
+     * Splits the filter string by 'and' to get the individual filters.
+     *
+     * @param filter the filter string to split.
+     * @return a list of individual filters.
+     */
     private static List<String> splitFilter(String filter) {
+        // Create a list to store the individual filters
         List<String> result = new ArrayList<>();
+        // Create a pattern to match ' and ' that is not inside parentheses
         Pattern pattern = Pattern.compile(" and (?![^()]*\\))");
         Matcher matcher = pattern.matcher(filter);
         int lastEnd = 0;

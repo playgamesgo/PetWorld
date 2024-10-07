@@ -7,6 +7,9 @@ import me.playgamesgo.petworldbackend.models.Dictionary;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Response payload for property definition details.
+ */
 @Getter
 @Setter
 public final class PropertyDefinitionResponse {

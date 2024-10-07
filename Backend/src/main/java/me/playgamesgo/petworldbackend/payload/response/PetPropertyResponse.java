@@ -8,6 +8,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Response payload for pet property details.
+ */
 @Getter
 @Setter
 public final class PetPropertyResponse {

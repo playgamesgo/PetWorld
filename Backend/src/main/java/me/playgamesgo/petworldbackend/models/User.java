@@ -9,6 +9,9 @@ import lombok.Setter;
 
 import java.util.Date;
 
+/**
+ * User entity
+ */
 @Getter
 @Setter
 @Entity

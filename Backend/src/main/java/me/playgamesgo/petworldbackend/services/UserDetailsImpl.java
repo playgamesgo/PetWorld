@@ -13,6 +13,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Implementation of UserDetails interface to provide user details for Spring Security.
+ */
 public final class UserDetailsImpl implements UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -37,6 +40,12 @@ public final class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
+    /**
+     * Builds a UserDetailsImpl object from a User entity.
+     *
+     * @param user the User entity.
+     * @return a UserDetailsImpl object.
+     */
     public static UserDetailsImpl build(User user) {
         List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(user.getRole().getName().name()));
 
@@ -50,11 +59,22 @@ public final class UserDetailsImpl implements UserDetails {
                 authorities);
     }
 
+    /**
+     * Returns the authorities granted to the user.
+     *
+     * @return a collection of granted authorities.
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
+    /**
+     * Checks if this UserDetailsImpl is equal to another object.
+     *
+     * @param o the object to compare.
+     * @return true if the objects are equal, false otherwise.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o)

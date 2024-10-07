@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents a property for dictionary values.
+ */
 @Entity
 @Getter
 @Setter

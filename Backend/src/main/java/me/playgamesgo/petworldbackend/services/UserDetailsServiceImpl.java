@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Service class for loading user-specific data.
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
@@ -18,6 +21,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Loads the user by username.
+     *
+     * @param username the username identifying the user whose data is required.
+     * @return a fully populated user record (UserDetails).
+     * @throws UsernameNotFoundException if the user could not be found.
+     */
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
