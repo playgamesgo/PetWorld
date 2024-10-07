@@ -26,7 +26,7 @@ cd Backend
 ./gradlew bootRun
 ```
 
-8. In Frontend/src/app/services/api.service.ts change BACKEND_API_URL to your local backend url;
+8. In `Frontend/src/app/services/api.service.ts` change BACKEND_API_URL to your local backend url;
 9. Run the following command to start the frontend
 ```sh
 cd Frontend
