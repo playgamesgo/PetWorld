@@ -1,0 +1,12 @@
+name: petworld-frontend
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3580:3580"
+    volumes:
+      - .:/app
+    container_name: frontend
