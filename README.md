@@ -1,7 +1,8 @@
 # PetWorld
 
 ## Description
-TODO: Add description
+This is pet adoption platform where users can adopt pets and post ads for adoption. This project is developed using Spring Boot for backend and Angular for frontend.
+Created for EPAM IT Technology Marathon 2024.
 
 ## Dependencies
 - Docker
@@ -54,3 +55,10 @@ npm run start
   - In `Backend/src/main/resources/` remove `dictionary.json` file to prevent dictionary data from being loaded.
   You need to have a dictionary data in the database for running the frontend.
   - In `Backend/src/main/resources/` remove `data.json` file to prevent default ads data from being loaded.
+  
+- Running frontend in docker
+  - Run the following command to build the frontend docker image
+    - ```sh
+      cd Frontend
+      docker compose up -d
+      ```
